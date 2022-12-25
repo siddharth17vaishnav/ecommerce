@@ -34,7 +34,7 @@ export const register = async (req: express.Request, res: express.Response) => {
     const { name, email, password, profile } = req.body;
     const existingUser = await User.findOneBy({ email: email });
     if (existingUser) {
-      res.status(401).send({ message: "User already exists" });
+      res.status(201).send({ message: "User already exists" });
     } else {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(password, salt);
@@ -49,7 +49,7 @@ export const register = async (req: express.Request, res: express.Response) => {
         })
         .returning("*")
         .execute();
-      res.send({ data: addUser.raw });
+      res.status(200).send({ data: addUser.raw });
     }
   } catch (err) {
     res.status(500).send(err.message);

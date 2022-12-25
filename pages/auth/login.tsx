@@ -6,10 +6,12 @@ import Checkbox from "@mui/material/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await axios
@@ -106,7 +108,10 @@ const Login = () => {
           }
         >
           Don't have an account?&nbsp;
-          <span className={"text-[#6C63FF] cursor-pointer"}>
+          <span
+            className={"text-[#6C63FF] cursor-pointer"}
+            onClick={() => router.push("/auth/register")}
+          >
             Sign up here
           </span>{" "}
         </div>
