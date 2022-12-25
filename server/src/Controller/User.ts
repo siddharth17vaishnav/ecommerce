@@ -10,6 +10,25 @@ export const users = async (req: express.Request, res: express.Response) => {
   }
 };
 
+export const login = async (req: express.Request, res: express.Response) => {
+  try {
+    const { email, password } = req.body;
+    const findUser = await User.findOneBy({ email: email });
+    if (findUser) {
+      const comparePassword = await bcrypt.compare(password, findUser.password);
+      if (comparePassword) {
+        res.status(200).send({ data: findUser });
+      } else {
+        res.status(201).send({ message: "invalid email or password!" });
+      }
+    } else {
+      res.status(201).send({ message: "User does not exists!" });
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 export const register = async (req: express.Request, res: express.Response) => {
   try {
     const { name, email, password, profile } = req.body;
@@ -37,4 +56,4 @@ export const register = async (req: express.Request, res: express.Response) => {
   }
 };
 
-module.exports = { users, register };
+module.exports = { users, register, login };
