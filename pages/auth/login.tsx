@@ -1,17 +1,48 @@
 import Image from "next/image";
 import dots from "../../src/assets/dots.svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormControlLabel, TextField } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { GetServerSideProps } from "next";
 
-const Login = () => {
+// @ts-ignore
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { status } = context.query;
+  if (status) {
+    return {
+      props: { status: status },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
+};
+const Login = (props: any) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (props.status == 401) {
+      toast.error("Unauthenticated User!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }, [props.status]);
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await axios
@@ -21,6 +52,9 @@ const Login = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          Cookies.set("accessToken", res.data.accessToken);
+          Cookies.set("refreshToken", res.data.refreshToken);
+
           toast.success("Logged in successfully", {
             position: "top-center",
             autoClose: 5000,
@@ -31,6 +65,7 @@ const Login = () => {
             progress: undefined,
             theme: "colored",
           });
+          router.push("/home");
         } else {
           toast.error(res.data.message, {
             position: "top-center",

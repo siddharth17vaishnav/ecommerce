@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import dots from "../../src/assets/dots.svg";
 import { TextField } from "@mui/material";
@@ -8,12 +8,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import user from "../../src/assets/user.png";
 
 const Register = () => {
+  const [image, setImage] = useState<any>("");
   const router = useRouter();
   const formikSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid Email").required("Email is required!"),
+    profile: Yup.mixed().required("Profile photo is required"),
     password: Yup.string()
       .min(6, "minimum 6 character Needed")
       .max(16, "minimum 12 character Needed")
@@ -30,6 +33,7 @@ const Register = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      profile: "",
     },
     validationSchema: formikSchema,
     onSubmit: async () => {
@@ -67,6 +71,14 @@ const Register = () => {
         });
     },
   });
+  console.log(values);
+  const handleOnChangeImage = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+    }
+  };
 
   return (
     <>
@@ -134,7 +146,37 @@ const Register = () => {
             required={true}
           />
           <p className={"py-4 text-red-700"}>{errors.confirmPassword}</p>
-
+          <div className="mb-3 w-96">
+            <label
+              htmlFor="formFile"
+              className="form-label inline-block mb-2 text-gray-700"
+            >
+              Select profile photo
+            </label>
+            <input
+              className="form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              type="file"
+              id="profile"
+              required
+              // onChange={(event) => handleOnChangeImage(event)}
+              onChange={handleChange}
+            />
+            <p className={"py-4 text-red-700"}>{errors.profile}</p>
+          </div>
           <button
             type={"submit"}
             className={
