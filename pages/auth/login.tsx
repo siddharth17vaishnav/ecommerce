@@ -142,7 +142,7 @@ const Login = (props: any) => {
             "flex justify-center mx-auto text-[#7A7A7A] font-semibold mt-4"
           }
         >
-          Don't have an account?&nbsp;
+          {`Don't have an account?&nbsp;`}
           <span
             className={"text-[#6C63FF] cursor-pointer"}
             onClick={() => router.push("/auth/register")}
