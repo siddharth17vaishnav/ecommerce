@@ -6,7 +6,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 const index = () => {
   return (
     <div className="bg-background rounded-bl-[200px]">
-      <div className="flex max-w-[1600px] justify-around mx-auto py-[52px]">
+      <div className="flex max-w-[1600px] justify-around mx-auto py-[52px] px-6">
         <div className="my-auto">
           <h2 className="text-4xl font-semibold">
             Fashion that <br />
