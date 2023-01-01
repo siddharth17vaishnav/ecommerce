@@ -1,13 +1,13 @@
-import authenticate from "../auth/authenticate";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-
-const Home = () => {
-  const router = useRouter();
-  useEffect(() => {
-    authenticate(router).then();
-  }, []);
-  return <div>home</div>;
+import React from "react";
+import Navbar from "../../src/components/layouts/Navbar";
+import Hero from "../../src/components/Hero/index";
+const index = () => {
+  return (
+    <div>
+      <Navbar />
+      <Hero />
+    </div>
+  );
 };
 
-export default Home;
+export default index;

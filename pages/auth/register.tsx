@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import dots from "../../src/assets/dots.svg";
 import { TextField } from "@mui/material";
@@ -8,10 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import user from "../../src/assets/user.png";
 
 const Register = () => {
-  const [image, setImage] = useState<any>("");
   const router = useRouter();
   const formikSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
