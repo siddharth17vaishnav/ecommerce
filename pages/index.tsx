@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         refreshToken: cookie.refreshToken,
       },
       redirect: {
-        destination: "/home",
+        destination: "/dashboard/home",
         permanent: false,
       },
     };

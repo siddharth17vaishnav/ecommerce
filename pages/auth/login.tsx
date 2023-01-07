@@ -65,7 +65,7 @@ const Login = (props: any) => {
             progress: undefined,
             theme: "colored",
           });
-          router.push("/home");
+          router.push("/dashboard/home");
         } else {
           toast.error(res.data.message, {
             position: "top-center",
