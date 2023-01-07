@@ -1,4 +1,6 @@
 import { User } from "../Entity/UserEntity";
+import  {Products}  from "../Entity/ProductEntity";
+import { Category } from "../Entity/CategoryEntity";
 
 type configType = {
   type: string;
@@ -9,6 +11,7 @@ type configType = {
   database: string;
   synchronize: boolean;
   entities: any;
+  logging:boolean;
 };
 
 const config: configType = {
@@ -19,7 +22,8 @@ const config: configType = {
   password: "root",
   database: "ecom",
   synchronize: true,
-  entities: [User],
+  entities: [User,Products,Category],
+  logging: true
 };
 
 export default config;

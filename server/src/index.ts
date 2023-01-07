@@ -5,6 +5,7 @@ import config from "./config/ormConfig";
 import express from "express";
 import cors from "cors";
 import { UserRouter } from "./Routes/User";
+import { CategoryRouter } from "./Routes/Category";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -20,7 +21,7 @@ const main = async () => {
       app.use(express.json());
       app.use(cors());
       app.use(UserRouter);
-
+      app.use(CategoryRouter)
       app.listen(PORT, () => {
         console.log(`SERVER STARTED ON ${PORT}`);
       });
