@@ -136,4 +136,25 @@ export const refreshToken = async (
   }
 };
 
-module.exports = { users, register, login, refreshToken };
+
+export const updateUser = async (req:express.Request,res:express.Response)=>{
+try{
+ const updateUser =  await User.createQueryBuilder().update(User).set(req.body).returning("*").execute();
+ res.status(200).send({data:updateUser.raw})
+} catch (err) {
+  res.status(500).send({ message: err.message });
+}
+}
+
+export const deleteUser = async (req:express.Request,res:express.Response)=>{
+  try{
+    const { userId } = req.query;
+    console.log(userId)
+    const deleteUser =  await User.createQueryBuilder().delete().from(User).where("id=:id",{id:userId}).returning("*").execute();
+    res.status(200).send({data:"deleted"})
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
+module.exports = { users, register, login, refreshToken ,updateUser,deleteUser};
