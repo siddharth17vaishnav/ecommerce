@@ -22,7 +22,7 @@ export const addCategory = async (
     const addCategory = await Category.createQueryBuilder()
       .insert()
       .into(Category)
-      .values({name})
+      .values({ name })
       .returning("*")
       .execute();
     if (addCategory.raw) res.status(200).send({ data: addCategory.raw });
@@ -31,4 +31,23 @@ export const addCategory = async (
   }
 };
 
-exports.module = { categories, addCategory };
+export const deleteCategory = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { categoryId } = req.query;
+    console.log(categoryId);
+    await Category.createQueryBuilder()
+      .delete()
+      .from(Category)
+      .where("id=:id", { id: categoryId })
+      .returning("*")
+      .execute();
+    res.status(200).send({ data: "deleted" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+exports.module = { categories, addCategory, deleteCategory };

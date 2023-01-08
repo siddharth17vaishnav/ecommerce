@@ -19,6 +19,7 @@ const drawerWidth = 240;
 import { useRouter } from "next/router";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Users from "../components/Users";
+import Category from "../components/Category";
 
 interface Props {
   window?: () => Window;
@@ -28,7 +29,6 @@ export default function Sidebar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectMenu, setSelectedMenu] = React.useState("Users");
-  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -50,7 +50,7 @@ export default function Sidebar(props: Props) {
       </div>
       <Divider />
       <List>
-        {["Users"].map((text, index) => (
+        {["Users", "Category"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -145,6 +145,7 @@ export default function Sidebar(props: Props) {
       >
         <Toolbar />
         {selectMenu === "Users" && <Users />}
+        {selectMenu === "Category" && <Category />}
       </Box>
     </Box>
   );
