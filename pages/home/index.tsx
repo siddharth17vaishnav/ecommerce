@@ -7,7 +7,7 @@ const index = () => {
     <div>
       <Navbar />
       <Hero />
-      <Slider />
+      {/* <Slider /> */}
     </div>
   );
 };

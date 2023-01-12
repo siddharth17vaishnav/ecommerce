@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         background: "#FEF6DE",
       },
+      fontFamilt: {
+        oswald: ["Oswald", "sans-serif"],
+      },
     },
   },
 };
